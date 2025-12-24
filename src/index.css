@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === GLOBAL RESET === */
+body {
+  @apply bg-black text-white antialiased;
+}
+
+/* === PIXEL STYLE === */
+.pixel-border {
+  border: 2px solid #6b7280;
+  box-shadow: 2px 2px 0 #000;
+}
+
+/* === SOFT GLOW (OPTIONAL, RINGAN) === */
+@keyframes soft-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(168,85,247,.3); }
+  50% { box-shadow: 0 0 12px rgba(168,85,247,.45); }
+}
+
+.glow-idle {
+  animation: soft-glow 4s ease-in-out infinite;
+}
