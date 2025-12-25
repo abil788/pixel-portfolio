@@ -96,7 +96,7 @@ const PixelPortfolio = () => {
       icon: "🪖",
       description:
         "Self-discipline application focused on helping users stop porn addiction and build a strong soldier mindset.",
-      tech: ["Python", "Logic System", "User Input Validation"],
+      tech: ["react", "Logic System", "tailwind"],
       status: "rare",
       demo: "#",
       github: "https://github.com/abil788/SoldierMentality-StopPornApplication",
