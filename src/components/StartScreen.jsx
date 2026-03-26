@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSound } from './SoundContext';
 
 // Floating pixel particles in the background
 const PARTICLES = Array.from({ length: 30 }, (_, i) => ({
@@ -25,21 +26,12 @@ const STARS = Array.from({ length: 60 }, (_, i) => ({
 
 export default function StartScreen({ onStart }) {
   const [glitch, setGlitch] = useState(false);
-  const [bootLine, setBootLine] = useState(0);
+  const { playBGM, playClick } = useSound();
 
-  const bootLines = [
-    "> CONNECTING TO MAINFRAME...",
-    "> LOADING PORTFOLIO.EXE...",
-    "> HERO DATA FOUND.",
-    "> PRESS START TO CONTINUE.",
-  ];
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setBootLine((p) => (p < bootLines.length - 1 ? p + 1 : p));
-    }, 600);
-    return () => clearInterval(t);
-  }, []);
+  const handleStart = () => {
+    playBGM();
+    onStart();
+  };
 
   useEffect(() => {
     const g = setInterval(() => {
@@ -115,12 +107,6 @@ export default function StartScreen({ onStart }) {
       {/* CONTENT */}
       <div className="relative z-10 flex flex-col items-center gap-10 px-4 text-center w-full max-w-3xl">
 
-        {/* TOP BAR */}
-        <div className="w-full flex items-center justify-between px-4 py-2 border border-purple-900/50 bg-black/40 backdrop-blur-sm">
-          <span className="pixel-text text-purple-600 px-tiny">INSERT COIN ▶</span>
-          <span className="pixel-text text-green-400 px-tiny anim-blink">● ONLINE</span>
-        </div>
-
         {/* TITLE BLOCK */}
         <div className="space-y-4">
           <div className={`relative transition-all ${glitch ? "anim-glitch" : ""}`}>
@@ -144,23 +130,14 @@ export default function StartScreen({ onStart }) {
 
           <div className="neon-divider w-64 mx-auto" />
 
-          <p className="pixel-text px-subtitle text-purple-300 tracking-widest">
+          <p className="pixel-text px-subtitle text-purple-300 tracking-widest mt-6">
             ⚔ &nbsp; EPIC ADVENTURE AWAITS &nbsp; ⚔
           </p>
         </div>
 
-        {/* BOOT LOG */}
-        <div className="w-full max-w-md bg-black/70 border border-purple-900/60 p-4 text-left space-y-1 backdrop-blur-sm">
-          {bootLines.slice(0, bootLine + 1).map((line, i) => (
-            <p key={i} className={`mono-text text-xs ${i === bootLine ? "text-green-400 typewriter-caret" : "text-green-600/70"}`}>
-              {line}
-            </p>
-          ))}
-        </div>
-
         {/* PRESS START BUTTON */}
         <button
-          onClick={onStart}
+          onClick={handleStart}
           className="pixel-btn relative px-10 py-5 text-sm text-white border-4 border-purple-500 bg-gradient-to-b from-purple-700 to-purple-900 hover:from-purple-600 hover:to-purple-800 hover:border-pink-400 transition-all glow-purple"
           style={{ boxShadow: "4px 4px 0 #000, 0 0 20px rgba(168,85,247,0.4)" }}
         >
@@ -186,11 +163,6 @@ export default function StartScreen({ onStart }) {
             </div>
           ))}
         </div>
-
-        {/* COPYRIGHT */}
-        <p className="pixel-text text-gray-800" style={{ fontSize: "0.4rem" }}>
-          © 2024 ABIL QIALANI • ALL RIGHTS RESERVED
-        </p>
       </div>
     </div>
   );

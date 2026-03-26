@@ -6,7 +6,8 @@ import ProjectsSection from "./components/ProjectsSection";
 import QuestsSection from "./components/QuestsSection";
 import SkillsSection from "./components/SkillsSection";
 import ContactSection from "./components/ContactSection";
-import { playClick } from "./utils/clickSound";
+import LorePage from "./components/LorePage";
+import { useSound } from "./components/SoundContext";
 
 /* ------------------------------------------------------------------ */
 /*  BACKGROUND — persistent animated grid + star helpers               */
@@ -62,6 +63,7 @@ function Background() {
 /*  MAIN APP                                                            */
 /* ------------------------------------------------------------------ */
 export default function App() {
+  const { playClick } = useSound();
   const [gameStarted, setGameStarted] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [showCRT, setShowCRT] = useState(false);
@@ -92,7 +94,7 @@ export default function App() {
         }
       `}</style>
 
-      <div className={`min-h-screen text-white font-mono relative overflow-x-hidden ${showCRT ? "crt-overlay crt-flicker" : ""}`}>
+      <div className={`min-h-screen text-white font-mono relative ${showCRT ? "crt-overlay crt-flicker" : ""}`}>
 
         {/* Persistent background (shown on both Start and main views) */}
         {gameStarted && <Background />}
@@ -110,28 +112,14 @@ export default function App() {
             />
 
             <main className="relative min-h-screen pb-24">
-              {activeSection === "about"    && <AboutSection />}
+              {activeSection === "about"    && <AboutSection onNavigate={handleNavigate} />}
+              {activeSection === "lore"     && <LorePage />}
               {activeSection === "projects" && <ProjectsSection />}
               {activeSection === "quests"   && <QuestsSection />}
               {activeSection === "skills"   && <SkillsSection />}
               {activeSection === "contact"  && <ContactSection onAddCoins={(n) => setCoins((c) => c + n)} />}
             </main>
 
-            {/* Footer */}
-            <footer className="relative z-10 border-t border-purple-900/30 bg-[#07071a]/90 backdrop-blur-sm">
-              <div className="neon-divider" />
-              <div className="max-w-7xl mx-auto px-4 py-6 text-center space-y-2">
-                <div className="flex flex-wrap justify-center items-center gap-3">
-                  <span className="pixel-text text-gray-800" style={{ fontSize: "0.42rem" }}>BUILT WITH</span>
-                  <span className="pixel-text text-purple-600" style={{ fontSize: "0.42rem" }}>REACT</span>
-                  <span className="pixel-text text-gray-800" style={{ fontSize: "0.42rem" }}>•</span>
-                  <span className="pixel-text text-cyan-700"  style={{ fontSize: "0.42rem" }}>TAILWIND</span>
-                  <span className="pixel-text text-gray-800" style={{ fontSize: "0.42rem" }}>•</span>
-                  <span className="pixel-text text-pink-700"  style={{ fontSize: "0.42rem" }}>PASSION</span>
-                </div>
-                <p className="pixel-text text-gray-800" style={{ fontSize: "0.38rem" }}>© 2024 ABIL QIALANI • ALL RIGHTS RESERVED</p>
-              </div>
-            </footer>
           </div>
         )}
       </div>
