@@ -17,8 +17,24 @@
 }
 
 /* ============================================================
-   GLOBAL RESET
+   GLOBAL RESET & CUSTOM CURSOR
    ============================================================ */
+html, body, #root {
+  cursor: url('/dagger-idle.svg') 0 0, auto !important;
+}
+
+/* Universal Click State */
+*:active {
+  cursor: url('/dagger-click.svg') 0 0, auto !important;
+}
+
+/* Interactive Elements (Enchanted Hover) */
+a, button, [role="button"], 
+.pixel-btn, .island-node, .close-btn, .gear-card, .gallery-scroll, 
+input[type="submit"], input[type="button"], select {
+  cursor: url('/dagger-hover.svg') 0 0, pointer !important;
+}
+
 *,
 *::before,
 *::after {
