@@ -69,14 +69,39 @@ export default function App() {
   const [showCRT, setShowCRT] = useState(false);
   const [coins, setCoins] = useState(9999);
 
-  // Scroll to top on section change for better UX
+  // Smooth scroll and active section tracking
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [activeSection]);
+    if (!gameStarted) return;
+
+    const options = {
+      root: null,
+      rootMargin: "-45% 0px -45% 0px", // Trigger when section is in the middle of viewport
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, options);
+
+    const sections = ["about", "lore", "projects", "quests", "skills", "contact"];
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [gameStarted]);
 
   const handleNavigate = (id) => {
     playClick();
-    setActiveSection(id);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const handleStart = () => {
@@ -86,23 +111,24 @@ export default function App() {
 
   return (
     <>
-      {/* Global styles for keyframes defined in index.css */}
       <style>{`
         @keyframes twinkle {
           0%,100%{ opacity:0.15; transform:scale(1); }
           50%     { opacity:0.9;  transform:scale(1.5); }
         }
+        /* Custom scrollbar to keep pixel feel */
+        body::-webkit-scrollbar { width: 8px; }
+        body::-webkit-scrollbar-track { background: #050510; }
+        body::-webkit-scrollbar-thumb { background: #5b21b6; border: 2px solid #050510; }
       `}</style>
 
       <div className={`min-h-screen text-white font-mono relative ${showCRT ? "crt-overlay crt-flicker" : ""}`}>
-
-        {/* Persistent background (shown on both Start and main views) */}
         {gameStarted && <Background />}
 
         {!gameStarted ? (
           <StartScreen onStart={handleStart} />
         ) : (
-          <div className="relative z-10">
+          <div className="relative z-10 flex flex-col">
             <Navigation
               activeSection={activeSection}
               onNavigate={handleNavigate}
@@ -111,15 +137,31 @@ export default function App() {
               onToggleCRT={() => { playClick(); setShowCRT((p) => !p); }}
             />
 
-            <main className="relative min-h-screen pb-24">
-              {activeSection === "about"    && <AboutSection onNavigate={handleNavigate} />}
-              {activeSection === "lore"     && <LorePage />}
-              {activeSection === "projects" && <ProjectsSection />}
-              {activeSection === "quests"   && <QuestsSection />}
-              {activeSection === "skills"   && <SkillsSection />}
-              {activeSection === "contact"  && <ContactSection onAddCoins={(n) => setCoins((c) => c + n)} />}
-            </main>
+            <main className="flex-1 w-full pb-32">
+              <section id="about" className="min-h-screen flex flex-col">
+                <AboutSection onNavigate={handleNavigate} />
+              </section>
+              
+              <section id="lore" className="min-h-screen">
+                <LorePage />
+              </section>
 
+              <section id="projects" className="min-h-screen">
+                <ProjectsSection />
+              </section>
+
+              <section id="quests" className="min-h-screen">
+                <QuestsSection />
+              </section>
+
+              <section id="skills" className="min-h-screen">
+                <SkillsSection />
+              </section>
+
+              <section id="contact" className="min-h-screen flex items-center justify-center">
+                <ContactSection onAddCoins={(n) => setCoins((c) => c + n)} />
+              </section>
+            </main>
           </div>
         )}
       </div>

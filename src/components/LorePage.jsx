@@ -94,7 +94,7 @@ export default function LorePage() {
    const currentData = selectedKey ? LORE_DATA[selectedKey] : null;
 
    return (
-      <div className="relative w-full md:h-screen md:overflow-hidden min-h-screen overflow-y-auto font-['Press_Start_2P'] select-none">
+      <div className="relative w-full min-h-screen font-['Press_Start_2P'] select-none py-12 md:py-24">
          <style>{`
         /* ── ISLAND ── */
         .island-wrapper {
@@ -179,7 +179,7 @@ export default function LorePage() {
       `}</style>
 
          {/* ── WORLD CONTENT ── */}
-         <div className="relative z-10 w-full flex flex-col items-center gap-16 md:block md:w-full md:h-full py-24 md:py-0 transition-opacity duration-500">
+         <div className="relative z-10 w-full flex flex-col items-center gap-16 md:block md:w-full md:min-h-[80vh] py-12 md:py-0 transition-opacity duration-500">
             <div className="md:absolute md:top-[8%] md:left-1/2 md:-translate-x-1/2 text-center pointer-events-none mb-4 md:mb-0">
                <div className="pixel-text text-[clamp(18px,3vw,32px)] text-white tracking-[4px] drop-shadow-[0_0_24px_rgba(100,160,255,0.7)]">
                   PLAYER LORE
