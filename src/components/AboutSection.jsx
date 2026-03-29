@@ -94,13 +94,13 @@ export default function AboutSection({ onNavigate }) {
         <Reveal direction="up" delay={0.2} className="w-full md:w-2/3 flex flex-col justify-center space-y-10 pt-4 md:pt-6">
 
           {/* Dialogue System (Directly on background) */}
-          <div className="relative">
+          <div className="relative overflow-hidden sm:overflow-visible">
             <div className="absolute -left-6 sm:-left-8 top-1 text-purple-500/50 text-xl font-bold anim-blink">▶</div>
-            <div className="space-y-6 border-l border-purple-900/40 pl-5 sm:pl-6 py-1">
+            <div className="space-y-4 sm:space-y-6 border-l border-purple-900/40 pl-5 sm:pl-6 py-1">
               {dialogues.slice(0, shown + 1).map((text, i) => (
                 <p
                   key={i}
-                  className={`pixel-text text-[0.65rem] sm:text-xs leading-[2.2] tracking-widest 
+                  className={`pixel-text text-[0.55rem] sm:text-[0.65rem] md:text-xs leading-[2.2] tracking-wider sm:tracking-widest 
                     ${i === shown ? "text-green-300 typewriter-caret" : "text-gray-400"}
                   `}
                 >

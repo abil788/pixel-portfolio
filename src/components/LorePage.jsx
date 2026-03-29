@@ -31,7 +31,7 @@ const LORE_DATA = {
       title: 'SMK Telkom Medan',
       date: '2022 — 2024',
       lore: 'Di sinilah kisah bermula. Pemain level 0 menginjakkan kaki dan menyentuh baris kode pertamanya. HTML, CSS, JS, Bootstrap, Tailwind, Laravel, React — satu per satu skill slot terisi. Tidak ada cheat code, hanya grinding panjang yang mengubah noob menjadi developer.',
-      photos: ['/medan0.jpeg', '/medan1.jpeg', '/medan2.jpeg', '/medan3.jpeg', '/medan4.jpeg', '/medan5.jpeg', '/medan6.jpeg'],
+      photos: ['/medan0.jpeg', '/medan1.jpeg', '/medan6.jpeg', '/medan3.jpeg', '/medan4.jpeg', '/medan5.jpeg', '/medan6.jpeg'],
       gear: ['html', 'css', 'js', 'laravel', 'php', 'react']
    },
    tult: {
@@ -57,6 +57,7 @@ export default function LorePage() {
    const [selectedKey, setSelectedKey] = useState(null);
    const { playClick, playHover } = useSound();
    const scrollRef = useRef(null);
+   const rafRef = useRef(null);
 
    // Drag scroll logic for gallery
    const [isDragging, setIsDragging] = useState(false);
@@ -74,12 +75,26 @@ export default function LorePage() {
    const onMouseMove = (e) => {
       if (!isDragging || !scrollRef.current) return;
       e.preventDefault();
+      if (rafRef.current) return;
+
       const x = e.pageX - scrollRef.current.offsetLeft;
       const walk = (x - startX) * 1.5;
-      scrollRef.current.scrollLeft = scrollLeft - walk;
+
+      rafRef.current = requestAnimationFrame(() => {
+         if (scrollRef.current) {
+            scrollRef.current.scrollLeft = scrollLeft - walk;
+         }
+         rafRef.current = null;
+      });
    };
 
-   const stopDragging = () => setIsDragging(false);
+   const stopDragging = () => {
+      setIsDragging(false);
+      if (rafRef.current) {
+         cancelAnimationFrame(rafRef.current);
+         rafRef.current = null;
+      }
+   };
 
    const openPanel = (key) => {
       playClick();
@@ -100,6 +115,7 @@ export default function LorePage() {
         .island-wrapper {
           display: flex; flex-direction: column; align-items: center;
           position: relative; left: auto; top: auto;
+          will-change: transform;
         }
         @media (min-width: 768px) {
           .island-wrapper {
@@ -114,11 +130,13 @@ export default function LorePage() {
           cursor: pointer; z-index: 10;
           animation: float-anim var(--f, 4s) ease-in-out infinite alternate;
           gap: 0; transition: transform 0.3s ease;
+          will-change: transform, filter;
+          transform: translateZ(0);
         }
         @keyframes float-anim { from { transform: translateY(0); } to { transform: translateY(-14px); } }
         .island-node:hover .island-img { filter: brightness(1.3) drop-shadow(0 0 20px var(--glow, #4488ff)); }
         .island-node.active .island-img { filter: brightness(1.4) drop-shadow(0_0_28px_var(--glow,#4488ff)); }
-        .island-img { width: var(--sz, 150px); height: var(--sz, 150px); object-fit: contain; image-rendering: pixelated; transition: filter 0.2s; }
+        .island-img { width: var(--sz, 150px); height: var(--sz, 150px); object-fit: contain; image-rendering: pixelated; transition: filter 0.2s; will-change: filter; }
 
         .island-label { display: flex; flex-direction: column; align-items: center; margin-top: 6px; gap: 3px; }
         .label-bar { display: flex; align-items: center; gap: 4px; width: 100%; justify-content: center; }
@@ -135,6 +153,8 @@ export default function LorePage() {
           box-shadow: 0 0 60px rgba(21, 48, 168, 0.5), 0 0 120px rgba(21, 48, 168, 0.2), inset 0 0 30px rgba(0, 0, 30, 0.6);
           transform: scale(0.88) translateY(30px); opacity: 0; transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.32s ease;
           pointer-events: none; display: flex; flex-direction: column; overflow: hidden;
+          will-change: transform, opacity;
+          transform: translateZ(0);
         }
         .quest-panel.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; }
 
@@ -161,10 +181,10 @@ export default function LorePage() {
         .lore-text { font-family: 'VT323', monospace; font-size: 18px; color: rgba(200, 210, 255, 0.9); line-height: 1.7; text-align: center; }
 
         .gallery-section { padding: 14px 20px; border-bottom: 1px solid rgba(50, 70, 180, 0.3); }
-        .gallery-scroll { display: flex; gap: 8px; overflow-x: auto; border: 2px solid rgba(80, 100, 220, 0.25); padding: 6px; cursor: grab; }
+        .gallery-scroll { display: flex; gap: 8px; overflow-x: auto; border: 2px solid rgba(80, 100, 220, 0.25); padding: 6px; cursor: grab; scroll-behavior: auto; -webkit-overflow-scrolling: touch; }
         .gallery-scroll:active { cursor: grabbing; }
-        .gallery-slide { flex: 0 0 auto; min-width: 120px; height: 160px; border: 1px solid rgba(50, 70, 180, 0.25); overflow: hidden; display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(45deg, rgba(15, 20, 80, 0.8) 0px, rgba(15, 20, 80, 0.8) 4px, rgba(8, 10, 45, 0.8) 4px, rgba(8, 10, 45, 0.8) 10px); font-size: 6px; color: rgba(80, 100, 255, 0.35); text-align: center; }
-        .gallery-slide img { height: 100%; width: auto; object-fit: contain; }
+        .gallery-slide { flex: 0 0 auto; min-width: 120px; height: 160px; border: 1px solid rgba(50, 70, 180, 0.25); overflow: hidden; display: flex; align-items: center; justify-content: center; background: rgba(15, 20, 80, 0.8); font-size: 6px; color: rgba(80, 100, 255, 0.35); text-align: center; will-change: transform; transform: translateZ(0); }
+        .gallery-slide img { height: 100%; width: auto; object-fit: contain; transform: translateZ(0); will-change: transform; }
         
         .gear-section { padding: 14px 20px 24px; }
         .gear-label { font-size: 7px; color: #f5c842; letter-spacing: 1px; margin-bottom: 12px; }
