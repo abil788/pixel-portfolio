@@ -13,6 +13,7 @@ export const projects = [
     id: 1,
     name: "Numone POS",
     icon: ShoppingCart,
+    image: "/numone.png",
     description:
       "Advanced Point of Sales application featuring comprehensive stock opname and unified store management workflows.",
     tech: ["Next.js", "React", "PWA", "Tailwind CSS", "PostgreSQL"],
@@ -25,6 +26,7 @@ export const projects = [
     id: 2,
     name: "Inventory Management System",
     icon: Package,
+    image: "/inventory.png",
     description:
       "Web-based inventory system with borrowing, returning, condition tracking, and role-based access control.",
     tech: ["Laravel 11", "PHP", "MySQL", "Tailwind CSS", "SweetAlert"],
@@ -37,6 +39,7 @@ export const projects = [
     id: 3,
     name: "POS Cashier System",
     icon: FileText,
+    image: "/pos.png",
     description:
       "Point of Sale system with multi-product transactions, customer reports, sales reports, and PDF export.",
     tech: ["PHP", "Bootstrap", "MySQL", "jsPDF", "AutoTable"],
@@ -49,6 +52,7 @@ export const projects = [
     id: 4,
     name: "Mobile LMS Application",
     icon: Smartphone,
+    image: null,
     description:
       "Learning Management System mobile app with authentication, course listing, and profile management.",
     tech: ["Flutter", "Laravel API", "Dart", "REST API"],
@@ -61,6 +65,7 @@ export const projects = [
     id: 5,
     name: "Parking System",
     icon: LayoutPanelLeft,
+    image: null,
     description:
       "Parking management system built with Python to manage vehicle entry, exit, and slot availability.",
     tech: ["Python", "CLI", "Data Structures"],
@@ -73,6 +78,7 @@ export const projects = [
     id: 6,
     name: "Soldier Mentality App",
     icon: ShieldHalf,
+    image: null,
     description:
       "Self-discipline application helping users build a strong soldier mindset and break bad habits.",
     tech: ["React", "Tailwind CSS", "Logic System"],

@@ -19,34 +19,37 @@ const LANGS = {
 
 const LORE_DATA = {
    wilmar: {
-      type: 'INTERNSHIP QUEST',
-      title: 'Internship Wilmar\nBisnis Indonesia',
+      type: 'INTERNSHIP EXPERIENCE',
+      title: 'Internship Wilmar Bisnis Indonesia',
       date: '2024',
-      lore: 'Sang pemain mendapat mentor legendaris — di sinilah jurus-jurus sakti di-unlock satu per satu. AJAX, CRUD, DataTable, Flutter, hingga Laravel dikuasai dalam satu arc. Quest berakhir dengan boss fight sesungguhnya: membangun Inventory Management System untuk Politeknik Wilmar — dan berhasil ditaklukkan.',
+      lore: 'Selama program magang, berkesempatan untuk bekerja di bawah bimbingan mentor berpengalaman dan mengembangkan berbagai keterampilan teknis seperti AJAX, CRUD, DataTable, Flutter, dan Laravel. Proyek utama yang diselesaikan adalah pembangunan sistem Inventory Management untuk Politeknik Wilmar, mulai dari perancangan hingga implementasi.',
       photos: [],
       gear: ['laravel', 'php', 'mysql', 'js', 'git']
    },
+
    medan: {
-      type: 'ORIGIN ARC',
+      type: 'EDUCATION',
       title: 'SMK Telkom Medan',
       date: '2022 — 2024',
-      lore: 'Di sinilah kisah bermula. Pemain level 0 menginjakkan kaki dan menyentuh baris kode pertamanya. HTML, CSS, JS, Bootstrap, Tailwind, Laravel, React — satu per satu skill slot terisi. Tidak ada cheat code, hanya grinding panjang yang mengubah noob menjadi developer.',
+      lore: 'Menyelesaikan pendidikan kejuruan dengan fokus pada pengembangan perangkat lunak. Mempelajari dasar hingga menengah dalam pengembangan web, termasuk HTML, CSS, JavaScript, Bootstrap, Tailwind, Laravel, dan React, serta membangun berbagai proyek sebagai bagian dari proses pembelajaran.',
       photos: ['/medan0.jpeg', '/medan1.jpeg', '/medan6.jpeg', '/medan3.jpeg', '/medan4.jpeg', '/medan5.jpeg', '/medan6.jpeg'],
       gear: ['html', 'css', 'js', 'laravel', 'php', 'react']
    },
+
    tult: {
-      type: 'CURRENT MAIN QUEST',
-      title: 'Telkom University\nARC',
+      type: 'CURRENT EDUCATION',
+      title: 'Telkom University',
       date: '2025 — PRESENT',
-      lore: 'Arena megah menjadi tempat pembuktian berikutnya. Bukan sekadar grinding solo — di sini sang pemain berburu party members, membangun relasi, dan menambah stack baru: Java, Next.js, PWA, Python. Setiap semester adalah dungeon baru. Quest ini belum selesai — dan inilah yang membuatnya berbahaya.',
+      lore: 'Saat ini melanjutkan pendidikan di Telkom University dengan fokus pada pengembangan software dan teknologi modern. Selain memperdalam pemahaman teori, juga aktif mengembangkan keterampilan praktis melalui proyek yang melibatkan Java, Next.js, PWA, dan Python, serta membangun kolaborasi dengan sesama mahasiswa.',
       photos: ['/tult1.jpeg', '/tult2.jpeg', '/tult3.jpeg', '/tult4.jpeg', '/tult5.jpeg'],
       gear: ['java', 'next', 'react', 'python', 'js', 'git']
    },
+
    numone: {
-      type: 'SOLO BUILD QUEST',
-      title: 'Pasundan Dev Isle',
+      type: 'PERSONAL PROJECT',
+      title: 'Numone System Development',
       date: '2025 — PRESENT',
-      lore: 'Perantau tanpa guild, hanya senjata dan keyboard. Di sudut sunyi perjalanan, sang pemain solo merancang benteng dagang bernama Numone — satu sistem yang menampung POS Kasir, Stock Opname, Kitchen Display System, hingga Laporan Laba Rugi. Tidak ada NPC yang membantu. Hanya Git, React, Next, PWA, PostgreSQL — dan tekad yang tidak pernah respawn.',
+      lore: 'Mengembangkan sistem bisnis secara mandiri yang mencakup fitur POS (Point of Sale), Stock Opname, Kitchen Display System, serta laporan keuangan seperti laba rugi. Proyek ini dibangun menggunakan React, Next.js, PWA, dan PostgreSQL, dengan fokus pada skalabilitas, efisiensi, dan pengalaman pengguna.',
       photos: ['/solo1.jpg', '/solo2.jpg', '/solo3.jpg', '/solo4.jpg', '/solo6.jpeg'],
       gear: ['next', 'react', 'js', 'git', 'pwa', 'mysql']
    }

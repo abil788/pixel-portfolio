@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Package, X, ExternalLink, Github } from "lucide-react";
 import { projects } from "../data/portfolioData";
 import Reveal from "./Reveal";
+import ProjectCard from "./ProjectCard";
 
 function RarityBadge({ status }) {
   const cls = status === "legendary" ? "badge-legendary" : status === "epic" ? "badge-epic" : "badge-rare";
@@ -117,65 +118,10 @@ export default function ProjectsSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {projects.map((project, i) => (
           <Reveal key={project.id} direction="up" delay={i * 0.15}>
-            <div
-              onClick={() => setSelected(project)}
-              className={`relative bg-[#080818] border-2 border-gray-800 hover:border-purple-600 p-5 cursor-pointer h-full flex flex-col
-                transition-all duration-300 hover:scale-[1.03] group card-scanline`}
-              style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.5)" }}
-              onMouseEnter={(e) => e.currentTarget.style.boxShadow = "0 0 25px rgba(168,85,247,0.2), 0 0 0 1px rgba(0,0,0,0.5)"}
-              onMouseLeave={(e) => e.currentTarget.style.boxShadow = "0 0 0 1px rgba(0,0,0,0.5)"}
-            >
-              {/* Pixel TL corner on hover */}
-              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-purple-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-purple-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-              {/* Card header */}
-              <div className="flex items-start justify-between mb-4">
-                <span className="text-purple-400 group-hover:text-pink-400 transition-colors">
-                  <project.icon size={48} strokeWidth={1.5} />
-                </span>
-                <RarityBadge status={project.status} />
-              </div>
-
-              <h3 className="pixel-text text-purple-300 text-xs mb-2 group-hover:text-purple-200 leading-relaxed">
-                {project.name}
-              </h3>
-              <p className="mono-text text-gray-500 text-xs mb-4 leading-relaxed line-clamp-3">
-                {project.description}
-              </p>
-
-              <div className="mt-auto">
-                {/* Mini stats */}
-                <div className="grid grid-cols-3 gap-1 mb-4">
-                  {[
-                    { icon: "⚔", val: project.stats.power,   color: "#ef4444" },
-                    { icon: "⚡", val: project.stats.speed,   color: "#3b82f6" },
-                    { icon: "🛡", val: project.stats.defense, color: "#22c55e" },
-                  ].map(({ icon, val, color }) => (
-                    <div key={icon} className="text-center border border-gray-800 py-1 bg-black/40">
-                      <span className="pixel-text text-gray-400" style={{ fontSize: "0.4rem", color }}>
-                        {icon} {val}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-1">
-                  {project.tech.slice(0, 3).map((t) => (
-                    <span key={t} className="pixel-text text-gray-600 border border-gray-800 bg-gray-950 px-2 py-0.5" style={{ fontSize: "0.4rem" }}>{t}</span>
-                  ))}
-                  {project.tech.length > 3 && (
-                    <span className="pixel-text text-purple-600 border border-purple-900/50 bg-purple-950/20 px-2 py-0.5" style={{ fontSize: "0.4rem" }}>+{project.tech.length - 3}</span>
-                  )}
-                </div>
-              </div>
-
-              {/* Hover hint */}
-              <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="pixel-text text-purple-600" style={{ fontSize: "0.4rem" }}>CLICK ▶</span>
-              </div>
-            </div>
+            <ProjectCard 
+              project={project} 
+              onClick={() => setSelected(project)} 
+            />
           </Reveal>
         ))}
       </div>
